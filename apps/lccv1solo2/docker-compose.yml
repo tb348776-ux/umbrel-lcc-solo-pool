@@ -12,18 +12,15 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: on-failure
-    # This service must be named 'web' for the proxy above to find it
 
   node:
-    image: litecoincash/litecoincash:latest
+    image: mtmining/p2pool-litecoincash:latest
     restart: on-failure
-    stop_grace_period: 1m
-    volumes:
-      - ${APP_DATA_DIR}/.litecoincash:/root/.litecoincash
     ports:
-      - 62457:62457
-    command: >
-      litecoincashd -printtoconsole -server 
-      -rpcbind=0.0.0.0 -rpcport=62457 
-      -rpcallowip=0.0.0.0/0 
-      -rpcuser=pooluser -rpcpassword=poolpassword
+      - 9327:9327 # P2Pool LCC Port
+    # P2Pool needs to know where the actual LCC Full Node is. 
+    # For now, we'll let it start up so you can see the GUI.
+    environment:
+      - RPC_USER=pooluser
+      - RPC_PASSWORD=poolpassword
+      - RPC_HOST=127.0.0.1
