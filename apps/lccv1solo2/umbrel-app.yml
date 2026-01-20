@@ -1,14 +1,14 @@
 manifestVersion: 1
 id: lccv1solo2
-name: LCC Solo Node V2
-tagline: Solo mine LCC (SHA-256) on your Umbrel.
+name: LCC Solo Pool
+tagline: Full Node + P2Pool Solo Mining
 icon: https://litecoincash.org/logo.png
-category: Mining Nodes
-version: "1.0.0"
-port: 5012
+category: Mining
+version: "1.0.2"
+port: 5088
 description: |
-  Litecoin Cash (LCC) Solo Mining Node. 
-  Logs viewable via Dozzle.
+  A complete solo mining solution.
+  Includes a Litecoin Cash Full Node and a P2Pool instance.
 developer: LCC Community
 website: https://github.com/tb348776-ux/umbrel-lcc-solo-pool
 repo: https://github.com/tb348776-ux/umbrel-lcc-solo-pool
