@@ -12,8 +12,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: on-failure
-    depends_on:
-      - node
+    # This service must be named 'web' for the proxy above to find it
 
   node:
     image: litecoincash/litecoincash:latest
@@ -23,4 +22,8 @@ services:
       - ${APP_DATA_DIR}/.litecoincash:/root/.litecoincash
     ports:
       - 62457:62457
-    entrypoint: "litecoincashd -printtoconsole -server -rpcbind=0.0.0.0 -rpcport=62457 -rpcallowip=0.0.0.0/0 -rpcuser=pooluser -rpcpassword=poolpassword"
+    command: >
+      litecoincashd -printtoconsole -server 
+      -rpcbind=0.0.0.0 -rpcport=62457 
+      -rpcallowip=0.0.0.0/0 
+      -rpcuser=pooluser -rpcpassword=poolpassword
