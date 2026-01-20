@@ -18,16 +18,7 @@ services:
     restart: on-failure
     volumes:
       - ${APP_DATA_DIR}/.litecoincash:/root/.litecoincash
-    command: >
-      litecoincashd -printtoconsole -server 
-      -rpcbind=0.0.0.0 -rpcport=62457 
-      -rpcallowip=0.0.0.0/0 
-      -rpcuser=pooluser -rpcpassword=poolpassword
-
-  pool:
-    image: mtmining/p2pool-litecoincash:latest
-    restart: on-failure
-    depends_on:
-      - node
     ports:
-      - 9327:9327
+      - 9006:9006
+      - 7006:7006
+    entrypoint: "litecoincashd -printtoconsole -server -zmqpubhashblock=tcp://0.0.0.0:7006 -rpcbind=0.0.0.0 -rpcport=9006 -rpcallowip=0.0.0.0/0 -rpcuser=pooluser -rpcpassword=poolpassword"
