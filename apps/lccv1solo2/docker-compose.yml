@@ -22,5 +22,5 @@ services:
     volumes:
       - ${APP_DATA_DIR}/.litecoincash:/root/.litecoincash
     ports:
-      - 62457:62457 # LCC RPC Port
+      - 62457:62457
     entrypoint: "litecoincashd -printtoconsole -server -rpcbind=0.0.0.0 -rpcport=62457 -rpcallowip=0.0.0.0/0 -rpcuser=pooluser -rpcpassword=poolpassword"
