@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    image: getumbrel/app-proxy:v0.1.0
+    environment:
+      APP_HOST: lccv1solo2_web_1
+      APP_PORT: 8080
+
+  web:
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: on-failure
+    depends_on:
+      - node
+
+  node:
+    image: litecoincash/litecoincash:latest
+    restart: on-failure
+    stop_grace_period: 1m
+    volumes:
+      - ${APP_DATA_DIR}/.litecoincash:/root/.litecoincash
+    ports:
+      - 62457:62457 # LCC RPC Port
+    entrypoint: "litecoincashd -printtoconsole -server -rpcbind=0.0.0.0 -rpcport=62457 -rpcallowip=0.0.0.0/0 -rpcuser=pooluser -rpcpassword=poolpassword"
