@@ -8,8 +8,7 @@ version: "1.0.0"
 port: 5012
 description: |
   Litecoin Cash (LCC) Solo Mining Node. 
-  This app runs a full LCC node and provides a local RPC server for your SHA-256 mining equipment.
-  The web interface uses Dozzle to provide a live stream of your node's heartbeat and logs.
+  Logs viewable via Dozzle.
 developer: LCC Community
 website: https://github.com/tb348776-ux/umbrel-lcc-solo-pool
 repo: https://github.com/tb348776-ux/umbrel-lcc-solo-pool
