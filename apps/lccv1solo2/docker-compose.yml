@@ -11,16 +11,23 @@ services:
     image: amir20/dozzle:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    restart: on-failure
+    restart: always
 
   node:
+    image: litecoincash/litecoincash:latest
+    restart: on-failure
+    volumes:
+      - ${APP_DATA_DIR}/.litecoincash:/root/.litecoincash
+    command: >
+      litecoincashd -printtoconsole -server 
+      -rpcbind=0.0.0.0 -rpcport=62457 
+      -rpcallowip=0.0.0.0/0 
+      -rpcuser=pooluser -rpcpassword=poolpassword
+
+  pool:
     image: mtmining/p2pool-litecoincash:latest
     restart: on-failure
+    depends_on:
+      - node
     ports:
-      - 9327:9327 # P2Pool LCC Port
-    # P2Pool needs to know where the actual LCC Full Node is. 
-    # For now, we'll let it start up so you can see the GUI.
-    environment:
-      - RPC_USER=pooluser
-      - RPC_PASSWORD=poolpassword
-      - RPC_HOST=127.0.0.1
+      - 9327:9327
